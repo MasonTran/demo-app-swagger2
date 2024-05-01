@@ -1,0 +1,11 @@
+/target/
+
+### Intellij ###
+.idea
+
+### STS ###
+.mvn
+.settings
+.classpath
+.project
+.springBeans
