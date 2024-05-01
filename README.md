@@ -17,4 +17,5 @@ mvn clean install
 Right-click on DemoApplication and run the main method as a spring boot project
 
 http://localhost:8081/actuator
+
 http://localhost:8081/swagger-ui.html
