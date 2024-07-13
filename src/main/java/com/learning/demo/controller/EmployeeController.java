@@ -7,7 +7,9 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import com.learning.demo.model.Employee;
+import com.learning.demo.model.EmployeeResponse;
 import com.learning.demo.service.EmployeeService;
+import com.learning.demo.service.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,12 +48,14 @@ public class EmployeeController {
 
 	@ApiOperation(value = "Get Employee by an ID")
 	@GetMapping("/employees/{id}")
-	public ResponseEntity<Employee> getEmployeeById(
+	public ResponseEntity<EmployeeResponse> getEmployeeById(
 			@ApiParam(value = "Employee Id to retrieve the Employee Object", required = true) @PathVariable(value = "id") Long employeeID)
 			throws ResourceNotFoundException {
 		Employee employee = employeeService.getEmployeeByID(employeeID)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee Not Found for the ID: " + employeeID));
-		return ResponseEntity.ok().body(employee);
+
+		EmployeeResponse employeeResponse = new EmployeeResponse(employee.getId(), employee.getEmailID(), employee.getFirstName(), employee.getLastName());
+		return ResponseEntity.ok().body(employeeResponse);
 	}
 
 	@ApiOperation(value = "Add New Employee Object")
